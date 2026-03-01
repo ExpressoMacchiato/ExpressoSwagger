@@ -1,0 +1,13 @@
+{
+  "name": "expresso-playground",
+  "version": "1.0.0",
+  "description": "Playground completo per ExpressoSwagger",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "cookie-parser": "^1.4.6"
+  }
+}
