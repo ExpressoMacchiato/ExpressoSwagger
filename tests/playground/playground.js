@@ -25,7 +25,7 @@ swagger.addEndpoint({
     path: "/users",
     method: "GET",
     group: "Utenti",
-    summary: "Lista Utenti",
+    name: "Lista Utenti",
     responses: { 200: { description: "Successo", body: ["User"] } }
 });
 
@@ -33,7 +33,7 @@ swagger.addEndpoint({
     path: "/posts/{id}",
     method: "GET",
     group: "Post",
-    summary: "Dettaglio Post",
+    name: "Dettaglio Post",
     params: { id: { type: "number", required: true } },
     responses: { 200: { description: "Trovato", body: "Post" } }
 });

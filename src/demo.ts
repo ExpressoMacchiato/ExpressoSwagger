@@ -34,7 +34,7 @@ app.addEndpoint({
     path: "/posts",
     method: "GET",
     group: "Catalogo Post",
-    summary: "Lista Post",
+    name: "Lista Post",
     responses: { 200: { description: "Successo", body: ["Post"] } }
 });
 
@@ -43,7 +43,7 @@ app.addEndpoint({
     path: "/posts",
     method: "GET",
     group: "DEMO_API",
-    summary: "Get con Parametro Opzionale",
+    name: "Get con Parametro Opzionale",
     description: "Recupera i post filtrando opzionalmente per userId.",
     query: {
         userId: { type: "number", description: "ID dell'utente (opzionale)" }
@@ -55,7 +55,7 @@ app.addEndpoint({
     path: "/posts",
     method: "POST",
     group: "DEMO_API",
-    summary: "Crea Risorsa (POST)",
+    name: "Crea Risorsa (POST)",
     description: "Crea un nuovo post inviando un body JSON.",
     body: "Post",
     responses: { 201: { description: "Creato con successo", body: "Post" } }
@@ -65,7 +65,7 @@ app.addEndpoint({
     path: "/posts/{id}",
     method: "PUT",
     group: "DEMO_API",
-    summary: "Aggiorna Completo (PUT)",
+    name: "Aggiorna Completo (PUT)",
     description: "Sostituisce interamente la risorsa specificata.",
     params: { id: { type: "number", required: true, description: "ID della risorsa" } },
     body: "Post",
@@ -76,7 +76,7 @@ app.addEndpoint({
     path: "/posts/{id}",
     method: "PATCH",
     group: "DEMO_API",
-    summary: "Aggiorna Parziale (PATCH)",
+    name: "Aggiorna Parziale (PATCH)",
     description: "Modifica solo alcuni campi della risorsa specificata.",
     params: { id: { type: "number", required: true, description: "ID della risorsa" } },
     body: { title: "Nuovo Titolo" },
@@ -87,7 +87,7 @@ app.addEndpoint({
     path: "/posts/{id}",
     method: "DELETE",
     group: "DEMO_API",
-    summary: "Elimina Risorsa (DELETE)",
+    name: "Elimina Risorsa (DELETE)",
     description: "Rimuove permanentemente la risorsa specificata.",
     params: { id: { type: "number", required: true, description: "ID della risorsa" } },
     responses: { 200: { description: "Eliminato con successo", body: {} } }
@@ -98,7 +98,7 @@ app.addEndpoint({
     path: "/users",
     method: "GET",
     group: "Gestione Utenti",
-    summary: "Lista Utenti",
+    name: "Lista Utenti",
     responses: { 200: { description: "Successo", body: ["User"] } }
 });
 

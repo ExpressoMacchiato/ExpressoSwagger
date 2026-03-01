@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Search, Play, Database, Shield, Layout, Globe, Clock, CheckCircle, AlertCircle, Code, ChevronDown, ChevronRight, Settings, Plus, Trash2, X, Key } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ChevronDown, ChevronRight, Clock, Code, Database, Globe, Key, Plus, Search, Settings, Shield, Trash2, X } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
 
 // HTTP Method Color Map
 const methodColors: Record<string, { bg: string, text: string, border: string }> = {
@@ -15,13 +15,13 @@ const methodColors: Record<string, { bg: string, text: string, border: string }>
 
 const SidebarItem = ({ method, title, active, onClick }: any) => {
     const colors = methodColors[method] || methodColors.DEFAULT;
-    
+
     return (
         <button
             onClick={onClick}
             className={`w-full flex items-center px-4 py-2 text-[13px] font-medium transition-all duration-200 rounded-lg group text-left ${
-                active 
-                    ? 'bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700' 
+                active
+                    ? 'bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700'
                     : 'text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 border border-transparent'
             }`}
         >
@@ -41,7 +41,7 @@ const InputField = ({ label, value, onChange, placeholder, type = "text", descri
                 <span className="text-[9px] text-slate-400 italic max-w-[150px] truncate">{description}</span>
             )}
         </div>
-        <input 
+        <input
             type={type}
             value={value}
             onChange={(e) => onChange(e.target.value)}
@@ -57,7 +57,7 @@ const SchemaPreview = ({ data, title }: { data: any, title: string }) => {
 
     return (
         <div className="mt-4 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/30">
-            <button 
+            <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="w-full flex items-center justify-between px-4 py-2 bg-slate-50 dark:bg-slate-900/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
@@ -152,9 +152,9 @@ export const ExpressoSwaggerUI = ({ document: initialDocument, url }: { document
         const term = searchTerm.toLowerCase();
         return document.endpoints.reduce((acc: any, endpoint: any) => {
             const group = endpoint.group || 'Default';
-            const matchesSearch = 
-                endpoint.path.toLowerCase().includes(term) || 
-                (endpoint.summary && endpoint.summary.toLowerCase().includes(term)) ||
+            const matchesSearch =
+                endpoint.path.toLowerCase().includes(term) ||
+                (endpoint.name && endpoint.name.toLowerCase().includes(term)) ||
                 endpoint.method.toLowerCase().includes(term) ||
                 group.toLowerCase().includes(term);
 
@@ -178,7 +178,7 @@ export const ExpressoSwaggerUI = ({ document: initialDocument, url }: { document
 
             const resolvedBody = resolveModel(selectedEndpoint.body);
             setBody(resolvedBody ? JSON.stringify(resolvedBody, null, 4) : "");
-            
+
             setResponse(null);
             setExecutionTime(null);
         }
@@ -251,18 +251,18 @@ export const ExpressoSwaggerUI = ({ document: initialDocument, url }: { document
     const baseUrlClean = finalBaseUrl.replace(/\/$/, '');
     const pathClean = displayPath.replace(/^\//, '');
     const fullUrl = `${baseUrlClean}/${pathClean}`;
-    
+
     const activeQueryParams = Object.entries(queryParams).filter(([_, v]) => v !== "");
-    const queryString = activeQueryParams.length > 0 
-        ? "?" + new URLSearchParams(activeQueryParams).toString() 
+    const queryString = activeQueryParams.length > 0
+        ? "?" + new URLSearchParams(activeQueryParams).toString()
         : "";
     const displayFullUrl = fullUrl + queryString;
-    
+
     const currentMethodColors = methodColors[selectedEndpoint.method] || methodColors.DEFAULT;
 
     return (
         <div className="flex h-screen w-full bg-slate-50 dark:bg-slate-950 font-sans overflow-hidden text-slate-900 dark:text-slate-100 relative">
-            
+
             <AnimatePresence>
                 {isConfigOpen && (
                     <>
@@ -323,7 +323,7 @@ export const ExpressoSwaggerUI = ({ document: initialDocument, url }: { document
                             <p className="text-[10px] font-black uppercase text-slate-400 mb-3 px-2 border-l-2 border-primary-500 pl-3">{group}</p>
                             <div className="space-y-1.5">
                                 {endpoints.map((endpoint: any, idx: number) => (
-                                    <SidebarItem key={idx} method={endpoint.method} title={endpoint.summary || endpoint.path} active={selectedEndpoint === endpoint} onClick={() => setSelectedEndpoint(endpoint)} />
+                                    <SidebarItem key={idx} method={endpoint.method} title={endpoint.name || endpoint.path} active={selectedEndpoint === endpoint} onClick={() => setSelectedEndpoint(endpoint)} />
                                 ))}
                             </div>
                         </div>
@@ -338,18 +338,18 @@ export const ExpressoSwaggerUI = ({ document: initialDocument, url }: { document
                             <span className={`px-3 py-1 text-[11px] font-black rounded-lg uppercase border ${currentMethodColors.bg} ${currentMethodColors.text} ${currentMethodColors.border}`}>{selectedEndpoint.method}</span>
                             <span className="text-sm font-mono text-slate-400">{selectedEndpoint.path}</span>
                         </div>
-                        <h2 className="text-4xl font-extrabold mb-2 tracking-tight">{selectedEndpoint.summary}</h2>
-                        
+                        <h2 className="text-4xl font-extrabold mb-2 tracking-tight">{selectedEndpoint.name}</h2>
+
                         <div className="flex items-center space-x-2 p-3 bg-slate-100 dark:bg-slate-900 rounded-xl mb-6 border border-slate-200 dark:border-slate-800 group relative">
                             <Globe className="w-4 h-4 text-slate-400 group-hover:text-primary-500 transition-colors" />
                             <code className="text-[13px] font-mono break-all text-slate-500 dark:text-slate-400 flex-1">{displayFullUrl}</code>
                             <button onClick={() => navigator.clipboard.writeText(displayFullUrl)} className="opacity-0 group-hover:opacity-100 p-1.5 hover:bg-white dark:hover:bg-slate-800 rounded-lg transition-all text-[10px] font-bold uppercase text-primary-500">Copy</button>
                         </div>
-                        
+
                         <p className="text-sm text-slate-600 dark:text-slate-400 mb-10 leading-relaxed font-medium whitespace-pre-wrap">
                             {selectedEndpoint.description || "No description provided."}
                         </p>
-                        
+
                         <div className="space-y-12">
                             <section>
                                 <div className="flex items-center space-x-2 mb-6 border-b border-slate-100 dark:border-slate-800 pb-2"><Shield className="w-5 h-5 text-slate-400" /><h3 className="text-xl font-bold">Security</h3></div>

@@ -39,7 +39,7 @@ doc.addEndpoint({
     path: "/api/login",
     method: "POST",
     group: "Authentication",
-    summary: "User Login (Cookie Auth)",
+    name: "User Login (Cookie Auth)",
     description: "Performs login and sets an HTTP-Only 'session_id' cookie.\nUse 'admin' / 'password' to test.",
     body: { username: "admin", password: "password" },
     responses: {
@@ -53,7 +53,7 @@ doc.addEndpoint({
     path: "/api/posts",
     method: "GET",
     group: "Posts",
-    summary: "List Posts",
+    name: "List Posts",
     description: "Returns a list of posts.\nYou can filter by category using the 'category' query parameter.\nAvailable categories: News, Info.",
     query: {
         category: { type: "string", description: "Filter by category name" },
@@ -66,9 +66,9 @@ doc.addEndpoint({
     path: "/api/posts/{id}",
     method: "GET",
     group: "Posts",
-    summary: "Post Details",
+    name: "Post Details",
     params: { id: { type: "number", required: true, description: "The unique ID of the post" } },
-    responses: { 
+    responses: {
         200: { description: "Found", body: "Post" },
         404: { description: "Not found", body: "Error" }
     }
@@ -78,7 +78,7 @@ doc.addEndpoint({
     path: "/api/posts",
     method: "POST",
     group: "Posts",
-    summary: "Create Post",
+    name: "Create Post",
     body: "Post",
     responses: { 201: { description: "Created", body: "Post" } }
 });
@@ -88,7 +88,7 @@ doc.addEndpoint({
     path: "/api/secure-data",
     method: "GET",
     group: "Security",
-    summary: "Protected Data (Requires Cookie)",
+    name: "Protected Data (Requires Cookie)",
     description: "Returns 401 if the 'session_id' cookie is missing.\nLogin first to access this endpoint.",
     responses: {
         200: { description: "Access granted", body: { secret: "TOP_SECRET_DATA_123" } },
@@ -100,7 +100,7 @@ doc.addEndpoint({
     path: "/api/custom-header-test",
     method: "GET",
     group: "Security",
-    summary: "Custom Header Test",
+    name: "Custom Header Test",
     description: "Requires the 'x-test-key' header to respond with success.\nSet it in Global Config to test.",
     responses: { 200: { description: "Header received successfully" } }
 });

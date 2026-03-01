@@ -52,7 +52,7 @@ doc.addEndpoint({
     path: "/users",
     method: "GET",
     group: "Users",
-    summary: "Retrieve all users",
+    name: "Retrieve all users",
     responses: {
         200: { description: "List of users", body: ["User"] }
     }

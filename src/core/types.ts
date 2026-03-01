@@ -19,12 +19,12 @@ export interface EndpointConfig {
     method: HttpMethod;
     baseUrl?: string;
     group?: string; // Gruppo/Schema di appartenenza (es. "Utenti", "Ordini")
-    summary?: string;
+    name?: string;
     description?: string;
     tags?: string[];
     params?: Record<string, ParamDefinition>;
     query?: Record<string, ParamDefinition>;
-    body?: any; // Può essere un oggetto o il NOME di un modello (stringa)
+    body?: string | Record<string, any>; // Può essere un oggetto o il NOME di un modello (stringa)
     responses: Record<number | string, EndpointResponse>;
 }
 
