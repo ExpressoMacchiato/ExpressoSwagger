@@ -1,7 +1,7 @@
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD';
 
 export interface ParamDefinition {
-    type: 'string' | 'number' | 'boolean' | 'object' | 'array';
+    type: 'string' | 'number' | 'boolean' | 'object' | 'array' | 'date' | 'datemultirange' | 'file' | 'blob';
     required?: boolean;
     description?: string;
     default?: any;
@@ -45,4 +45,8 @@ export interface ExpressoSwaggerConfig {
     baseUrl?: string;
     settings?: ExpressoSwaggerSettings;
     models?: Record<string, any>; // Definizione dei modelli globali
+}
+
+export interface ExpressoSwaggerDocument extends ExpressoSwaggerConfig {
+    endpoints: EndpointConfig[];
 }

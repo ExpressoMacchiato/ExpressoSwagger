@@ -1,6 +1,6 @@
 {
     "name": "expresso-swagger",
-    "version": "0.0.4",
+    "version": "0.0.6",
     "description": "A modern, beautiful Swagger UI replacement with built-in credential support and easy programmatic configuration.",
     "main": "./dist/lib/index.js",
     "module": "./dist/lib/index.mjs",
